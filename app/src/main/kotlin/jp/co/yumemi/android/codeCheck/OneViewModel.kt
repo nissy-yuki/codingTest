@@ -3,7 +3,6 @@
  */
 package jp.co.yumemi.android.codeCheck
 
-import android.content.Context
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,21 +11,21 @@ import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import jp.co.yumemi.android.codeCheck.TopActivity.Companion.lastSearchDate
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
-import java.util.*
 
 /**
  * TwoFragment で使う
  */
-class OneViewModel(
-    val context: Context
-) : ViewModel() {
+class OneViewModel() : ViewModel() {
+
+    private var languageFormat: String = ""
+
+    fun setLanguageFormat(text: String){
+        languageFormat = text
+    }
 
     // 検索結果
     fun searchResults(inputText: String): List<GitItem> = runBlocking {
@@ -57,7 +56,7 @@ class OneViewModel(
                     GitItem(
                         name = name,
                         ownerIconUrl = ownerIconUrl,
-                        language = context.getString(R.string.written_language, language),
+                        language = (languageFormat.format(language)),
                         stargazersCount = stargazersCount,
                         watchersCount = watchersCount,
                         forksCount = forksCount,

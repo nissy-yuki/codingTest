@@ -20,7 +20,8 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentOneBinding.bind(view)
-        val viewModel = OneViewModel(requireContext())
+        val viewModel = OneViewModel()
+        viewModel.setLanguageFormat(requireContext().getString(R.string.written_language))
 
         val layoutManager = LinearLayoutManager(requireContext())
         val dividerItemDecoration =

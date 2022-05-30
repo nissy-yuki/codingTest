@@ -20,11 +20,12 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentOneBinding.bind(view)
-        val viewModel = OneViewModel(context!!)
+        val viewModel = OneViewModel()
+        viewModel.setLanguageFormat(requireContext().getString(R.string.written_language))
 
-        val layoutManager = LinearLayoutManager(context!!)
+        val layoutManager = LinearLayoutManager(requireContext())
         val dividerItemDecoration =
-            DividerItemDecoration(context!!, layoutManager.orientation)
+            DividerItemDecoration(requireContext(), layoutManager.orientation)
         val adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
             override fun itemClick(item: GitItem) {
                 gotoRepositoryFragment(item)
@@ -87,8 +88,8 @@ class CustomAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        val textView = holder.itemView.findViewById<View>(R.id.repositoryNameView) as TextView
-        textView.text = item.name
+        val textView = holder.itemView.findViewById<View>(R.id.repositoryNameView)
+        if(textView is TextView) textView.text = item.name
 
         holder.itemView.setOnClickListener {
             itemClickListener.itemClick(item)

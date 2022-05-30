@@ -6,6 +6,7 @@ package jp.co.yumemi.android.codeCheck
 import android.content.Context
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
@@ -14,6 +15,7 @@ import io.ktor.client.statement.*
 import jp.co.yumemi.android.codeCheck.TopActivity.Companion.lastSearchDate
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
@@ -30,11 +32,11 @@ class OneViewModel(
     fun searchResults(inputText: String): List<GitItem> = runBlocking {
         val client = HttpClient(Android)
 
-        return@runBlocking GlobalScope.async {
-            val response: HttpResponse = client?.get("https://api.github.com/search/repositories") {
+        return@runBlocking viewModelScope.async {
+            val response: HttpResponse = client.get("https://api.github.com/search/repositories") {
                 header("Accept", "application/vnd.github.v3+json")
                 parameter("q", inputText)
-            }
+            } ?: return@async emptyList()
 
             val jsonBody = JSONObject(response.receive<String>())
             val jsonItems = jsonBody.optJSONArray("items")!!

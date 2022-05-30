@@ -39,7 +39,7 @@ class OneViewModel(
             } ?: return@async emptyList()
 
             val jsonBody = JSONObject(response.receive<String>())
-            val jsonItems = jsonBody.optJSONArray("items")!!
+            val jsonItems = jsonBody.optJSONArray("items") ?: return@async emptyList()
             val items = mutableListOf<GitItem>()
 
             // jsonItemsの数分ループ

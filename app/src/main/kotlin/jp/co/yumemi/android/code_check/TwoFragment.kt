@@ -26,7 +26,7 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
 
         binding = FragmentTwoBinding.bind(view)
 
-        val item = args.item
+        val item = args.gitItem
 
         _binding.ownerIconView.load(item.ownerIconUrl)
         _binding.nameView.text = item.name

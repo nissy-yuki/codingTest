@@ -20,7 +20,6 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentOneBinding.bind(view)
-
         val viewModel = OneViewModel(context!!)
 
         val layoutManager = LinearLayoutManager(context!!)
@@ -54,7 +53,7 @@ class OneFragment : Fragment(R.layout.fragment_one) {
 
     fun gotoRepositoryFragment(item: GitItem) {
         val action = OneFragmentDirections
-            .actionRepositoriesFragmentToRepositoryFragment(item = item)
+            .actionRepositoriesFragmentToRepositoryFragment(gitItem = item)
         findNavController().navigate(action)
     }
 }

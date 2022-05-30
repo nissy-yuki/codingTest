@@ -37,14 +37,10 @@ class OneViewModel(
             }
 
             val jsonBody = JSONObject(response.receive<String>())
-
             val jsonItems = jsonBody.optJSONArray("items")!!
-
             val items = mutableListOf<item>()
 
-            /**
-             * アイテムの個数分ループする
-             */
+            // jsonItemsの数分ループ
             for (i in 0 until jsonItems.length()) {
                 val jsonItem = jsonItems.optJSONObject(i)!!
                 val name = jsonItem.optString("full_name")

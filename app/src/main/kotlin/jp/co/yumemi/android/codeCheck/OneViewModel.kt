@@ -42,7 +42,7 @@ class OneViewModel(
 
             // jsonItemsの数分ループ
             for (i in 0 until jsonItems.length()) {
-                val jsonItem = jsonItems.optJSONObject(i)!!
+                val jsonItem = jsonItems.optJSONObject(i) ?: continue
                 val name = jsonItem.optString("full_name")
                 val ownerIconUrl = jsonItem.optJSONObject("owner")!!.optString("avatar_url")
                 val language = jsonItem.optString("language")

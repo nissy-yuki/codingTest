@@ -27,8 +27,8 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         val dividerItemDecoration =
             DividerItemDecoration(context!!, layoutManager.orientation)
         val adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
-            override fun itemClick(GitItem: GitItem) {
-                gotoRepositoryFragment(GitItem)
+            override fun itemClick(item: GitItem) {
+                gotoRepositoryFragment(item)
             }
         })
 
@@ -52,20 +52,20 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         }
     }
 
-    fun gotoRepositoryFragment(GitItem: GitItem) {
+    fun gotoRepositoryFragment(item: GitItem) {
         val action = OneFragmentDirections
-            .actionRepositoriesFragmentToRepositoryFragment(item = GitItem)
+            .actionRepositoriesFragmentToRepositoryFragment(item = item)
         findNavController().navigate(action)
     }
 }
 
 val diff_util = object : DiffUtil.ItemCallback<GitItem>() {
-    override fun areItemsTheSame(oldGitItem: GitItem, newGitItem: GitItem): Boolean {
-        return oldGitItem.name == newGitItem.name
+    override fun areItemsTheSame(oldItem: GitItem, newItem: GitItem): Boolean {
+        return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldGitItem: GitItem, newGitItem: GitItem): Boolean {
-        return oldGitItem == newGitItem
+    override fun areContentsTheSame(oldItem: GitItem, newItem: GitItem): Boolean {
+        return oldItem == newItem
     }
 
 }
@@ -77,7 +77,7 @@ class CustomAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     interface OnItemClickListener {
-        fun itemClick(GitItem: GitItem)
+        fun itemClick(item: GitItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

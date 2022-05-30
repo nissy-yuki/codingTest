@@ -71,6 +71,7 @@ class OneViewModel(
     }
 }
 
+
 @Parcelize
 data class GitItem(
     val name: String,
@@ -80,4 +81,4 @@ data class GitItem(
     val watchersCount: Long,
     val forksCount: Long,
     val openIssuesCount: Long,
-) : Parcelable
+): Parcelable

@@ -27,8 +27,8 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         val dividerItemDecoration =
             DividerItemDecoration(context!!, layoutManager.orientation)
         val adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
-            override fun itemClick(item: item) {
-                gotoRepositoryFragment(item)
+            override fun itemClick(GitItem: GitItem) {
+                gotoRepositoryFragment(GitItem)
             }
         })
 
@@ -52,32 +52,32 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         }
     }
 
-    fun gotoRepositoryFragment(item: item) {
+    fun gotoRepositoryFragment(GitItem: GitItem) {
         val action = OneFragmentDirections
-            .actionRepositoriesFragmentToRepositoryFragment(item = item)
+            .actionRepositoriesFragmentToRepositoryFragment(item = GitItem)
         findNavController().navigate(action)
     }
 }
 
-val diff_util = object : DiffUtil.ItemCallback<item>() {
-    override fun areItemsTheSame(oldItem: item, newItem: item): Boolean {
-        return oldItem.name == newItem.name
+val diff_util = object : DiffUtil.ItemCallback<GitItem>() {
+    override fun areItemsTheSame(oldGitItem: GitItem, newGitItem: GitItem): Boolean {
+        return oldGitItem.name == newGitItem.name
     }
 
-    override fun areContentsTheSame(oldItem: item, newItem: item): Boolean {
-        return oldItem == newItem
+    override fun areContentsTheSame(oldGitItem: GitItem, newGitItem: GitItem): Boolean {
+        return oldGitItem == newGitItem
     }
 
 }
 
 class CustomAdapter(
     private val itemClickListener: OnItemClickListener,
-) : ListAdapter<item, CustomAdapter.ViewHolder>(diff_util) {
+) : ListAdapter<GitItem, CustomAdapter.ViewHolder>(diff_util) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     interface OnItemClickListener {
-        fun itemClick(item: item)
+        fun itemClick(GitItem: GitItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

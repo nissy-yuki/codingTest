@@ -64,8 +64,6 @@ class OneViewModel(
                 )
             }
 
-            lastSearchDate = Date()
-
             return@async items.toList()
         }.await()
     }

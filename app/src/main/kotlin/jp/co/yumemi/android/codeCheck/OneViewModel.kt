@@ -32,6 +32,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OneViewModel @Inject constructor() : ViewModel() {
 
+    //
     private var languageFormat: String = ""
 
     private var _searchResult: MutableLiveData<GitResponse> = MutableLiveData()
@@ -53,7 +54,7 @@ class OneViewModel @Inject constructor() : ViewModel() {
                 if(response.isSuccessful){
                     _searchResult.value = response.body()
                 } else {
-                    Log.d("get api","not success")
+                    Log.d("Get api","not success")
                 }
             } catch (e: Exception){
                 Log.d("Get api",e.toString())

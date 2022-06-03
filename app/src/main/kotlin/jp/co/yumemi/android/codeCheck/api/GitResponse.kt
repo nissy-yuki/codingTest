@@ -1,12 +1,11 @@
 package jp.co.yumemi.android.codeCheck.api
 
-import android.os.Parcelable
 import jp.co.yumemi.android.codeCheck.GitItem
-import kotlinx.parcelize.Parcelize
 
 data class GitResponse(
     val items: List<GitParse>
 ){
+    // 表示用のList<GitItem>へ変換
     fun toGitItemList(): List<GitItem>{
         return this.items.map { it.toGitItem() }
     }
@@ -26,9 +25,9 @@ data class GitParse(
     val open_issues_count: Long?,
 ){
     fun toGitItem(): GitItem{
-        return GitItem(name = this.full_name ?: "",
-            ownerIconUrl = this.owner?.avatar_url ?: "",
-            language = this.language ?: "",
+        return GitItem(name = this.full_name ?: "none",
+            ownerIconUrl = this.owner?.avatar_url ?: "none",
+            language = this.language ?: "none",
             stargazersCount = this.stargazers_count ?:0,
             watchersCount = this.watchers_count ?: 0,
             forksCount = this.forks_count ?: 0 ,

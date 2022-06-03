@@ -67,32 +67,4 @@ val diff_util = object : DiffUtil.ItemCallback<GitItem>() {
     override fun areContentsTheSame(oldItem: GitItem, newItem: GitItem): Boolean {
         return oldItem == newItem
     }
-
-}
-
-class CustomAdapter(
-    private val itemClickListener: OnItemClickListener,
-) : ListAdapter<GitItem, CustomAdapter.ViewHolder>(diff_util) {
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
-    interface OnItemClickListener {
-        fun itemClick(item: GitItem)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.layout_item, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        val textView = holder.itemView.findViewById<View>(R.id.repositoryNameView)
-        if(textView is TextView) textView.text = item.name
-
-        holder.itemView.setOnClickListener {
-            itemClickListener.itemClick(item)
-        }
-    }
 }

@@ -57,8 +57,7 @@ class OneFragment : Fragment(R.layout.fragment_one) {
 
         // searchResultの更新を検知してRecyclerViewを更新
         viewModel.searchResult.observe(viewLifecycleOwner) {
-            Log.d("checkValue",it.toString())
-            adapter.submitList(it.toGitItemList())
+            adapter.submitList(it)
         }
 
         binding.recyclerView.also {

@@ -35,8 +35,8 @@ class OneViewModel @Inject constructor() : ViewModel() {
     //
     private var languageFormat: String = ""
 
-    private var _searchResult: MutableLiveData<GitResponse> = MutableLiveData()
-    val searchResult: LiveData<GitResponse> get() = _searchResult
+    private var _searchResult: MutableLiveData<List<GitItem>> = MutableLiveData()
+    val searchResult: LiveData<List<GitItem>> get() = _searchResult
 
     private val provider: GithubRetrofitProvider = GithubRetrofitProvider()
     private val repository: GithubRepository = GithubRepository(provider.retrofit)
@@ -51,7 +51,7 @@ class OneViewModel @Inject constructor() : ViewModel() {
             try {
                 val response = repository.searchRepository(inputText)
                 if(response.isSuccessful){
-                    _searchResult.value = response.body()
+                    _searchResult.value = response.body()?.toGitItemList(languageFormat)
                 } else {
                     Log.d("Get api","not success")
                 }

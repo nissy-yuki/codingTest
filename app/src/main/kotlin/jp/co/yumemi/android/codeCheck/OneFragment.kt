@@ -3,24 +3,31 @@
  */
 package jp.co.yumemi.android.codeCheck
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.yumemi.android.codeCheck.databinding.FragmentOneBinding
 
+@AndroidEntryPoint
 class OneFragment : Fragment(R.layout.fragment_one) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentOneBinding.bind(view)
-        val viewModel = OneViewModel()
+        val viewModel: OneViewModel by viewModels()
         viewModel.setLanguageFormat(requireContext().getString(R.string.written_language))
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -35,15 +42,23 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         binding.searchInputText
             .setOnEditorActionListener { editText, action, _ ->
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
+
+                    // キーボードを閉じる
+                    val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE)
+                    if (inputMethodManager is InputMethodManager) inputMethodManager.hideSoftInputFromWindow(editText.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+
                     editText.text.toString().let {
-                        viewModel.searchResults(it).apply {
-                            adapter.submitList(this)
-                        }
+                        viewModel.searchResults(it)
                     }
                     return@setOnEditorActionListener true
                 }
                 return@setOnEditorActionListener false
             }
+
+        // searchResultの更新を検知してRecyclerViewを更新
+        viewModel.searchResult.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
 
         binding.recyclerView.also {
             it.layoutManager = layoutManager

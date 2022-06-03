@@ -18,12 +18,15 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
 
     private val args: TwoFragmentArgs by navArgs()
 
+    private var _binding: FragmentTwoBinding? = null
+    private val binding get() = _binding!!
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("検索した日時", lastSearchDate.toString())
 
-        val binding = FragmentTwoBinding.bind(view)
+        _binding = FragmentTwoBinding.bind(view)
 
         val item = args.gitItem
 
@@ -34,5 +37,10 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
         binding.watchersView.text = "${item.watchersCount} watchers"
         binding.forksView.text = "${item.forksCount} forks"
         binding.openIssuesView.text = "${item.openIssuesCount} open issues"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

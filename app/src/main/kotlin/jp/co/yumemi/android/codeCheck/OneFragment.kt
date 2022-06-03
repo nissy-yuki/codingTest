@@ -3,11 +3,14 @@
  */
 package jp.co.yumemi.android.codeCheck
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,15 +42,23 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         binding.searchInputText
             .setOnEditorActionListener { editText, action, _ ->
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
+
+                    val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE)
+                    if (inputMethodManager is InputMethodManager) inputMethodManager.hideSoftInputFromWindow(editText.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+
                     editText.text.toString().let {
-                        viewModel.searchResults(it).apply {
-                            adapter.submitList(this)
-                        }
+                        Log.d("checkMove","tap enter")
+                        viewModel.searchResults(it)
                     }
                     return@setOnEditorActionListener true
                 }
                 return@setOnEditorActionListener false
             }
+
+        viewModel.searchResult.observe(viewLifecycleOwner) {
+            Log.d("checkValue",it.toString())
+            adapter.submitList(it.toGitItemList())
+        }
 
         binding.recyclerView.also {
             it.layoutManager = layoutManager

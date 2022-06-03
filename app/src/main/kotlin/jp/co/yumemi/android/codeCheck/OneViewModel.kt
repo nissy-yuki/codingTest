@@ -30,7 +30,11 @@ class OneViewModel @Inject constructor() : ViewModel() {
 
     private var languageFormat: String = ""
 
+    private var _searchResult: MutableLiveData<List<GitItem>> = MutableLiveData()
+    val searchResult: LiveData<List<GitItem>> get() = _searchResult
 
+    private val provider: GithubRetrofitProvider = GithubRetrofitProvider()
+    private val repository: GithubRepository = GithubRepository(provider.retrofit)
 
     fun setLanguageFormat(text: String){
         languageFormat = text

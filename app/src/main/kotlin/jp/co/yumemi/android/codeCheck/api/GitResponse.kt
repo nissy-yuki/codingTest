@@ -6,15 +6,14 @@ data class GitResponse(
     val items: List<GitParse>
 ){
     // 表示用のList<GitItem>へ変換
-    fun toGitItemList(): List<GitItem>{
-        return this.items.map { it.toGitItem() }
-    }
+    fun toGitItemList(): List<GitItem> = this.items.map { it.toGitItem() }
 }
 
 data class OwnerData(
     val avatar_url: String?
 )
 
+// Jsonを受け取るためのクラス
 data class GitParse(
     val full_name: String?,
     val owner: OwnerData?,

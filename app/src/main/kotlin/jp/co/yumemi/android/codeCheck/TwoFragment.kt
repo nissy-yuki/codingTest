@@ -27,7 +27,6 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
         Log.d("検索した日時", lastSearchDate.toString())
 
         _binding = FragmentTwoBinding.bind(view)
-
         val item = args.gitItem
 
         binding.ownerIconView.load(item.ownerIconUrl)

@@ -43,11 +43,11 @@ class OneFragment : Fragment(R.layout.fragment_one) {
             .setOnEditorActionListener { editText, action, _ ->
                 if (action == EditorInfo.IME_ACTION_SEARCH) {
 
+                    // キーボードを閉じる
                     val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE)
                     if (inputMethodManager is InputMethodManager) inputMethodManager.hideSoftInputFromWindow(editText.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
 
                     editText.text.toString().let {
-                        Log.d("checkMove","tap enter")
                         viewModel.searchResults(it)
                     }
                     return@setOnEditorActionListener true
@@ -55,6 +55,7 @@ class OneFragment : Fragment(R.layout.fragment_one) {
                 return@setOnEditorActionListener false
             }
 
+        // searchResultの更新を検知してRecyclerViewを更新
         viewModel.searchResult.observe(viewLifecycleOwner) {
             Log.d("checkValue",it.toString())
             adapter.submitList(it.toGitItemList())

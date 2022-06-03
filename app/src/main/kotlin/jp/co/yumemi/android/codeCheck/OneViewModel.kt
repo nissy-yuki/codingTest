@@ -45,9 +45,8 @@ class OneViewModel @Inject constructor() : ViewModel() {
         languageFormat = text
     }
 
-    // 検索結果
+    // 入力されたTextでRepositoryを検索
     fun searchResults(inputText: String) = runBlocking {
-
         viewModelScope.launch {
             try {
                 val response = repository.searchRepository(inputText)

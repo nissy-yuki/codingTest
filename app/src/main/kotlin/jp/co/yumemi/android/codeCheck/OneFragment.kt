@@ -5,29 +5,26 @@ package jp.co.yumemi.android.codeCheck
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.yumemi.android.codeCheck.databinding.FragmentOneBinding
 
 @AndroidEntryPoint
 class OneFragment : Fragment(R.layout.fragment_one) {
 
+    private val viewModel: OneViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentOneBinding.bind(view)
-        val viewModel: OneViewModel by viewModels()
+
         viewModel.setLanguageFormat(requireContext().getString(R.string.written_language))
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -71,15 +68,5 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         val action = OneFragmentDirections
             .actionRepositoriesFragmentToRepositoryFragment(gitItem = item)
         findNavController().navigate(action)
-    }
-}
-
-val diff_util = object : DiffUtil.ItemCallback<GitItem>() {
-    override fun areItemsTheSame(oldItem: GitItem, newItem: GitItem): Boolean {
-        return oldItem.name == newItem.name
-    }
-
-    override fun areContentsTheSame(oldItem: GitItem, newItem: GitItem): Boolean {
-        return oldItem == newItem
     }
 }

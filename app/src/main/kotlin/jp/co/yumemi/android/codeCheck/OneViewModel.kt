@@ -41,7 +41,7 @@ class OneViewModel @Inject constructor() : ViewModel() {
     private val provider: GithubRetrofitProvider = GithubRetrofitProvider()
     private val repository: GithubRepository = GithubRepository(provider.retrofit)
 
-    fun setLanguageFormat(text: String){
+    fun setLanguageFormat(text: String) {
         languageFormat = text
     }
 
@@ -50,25 +50,15 @@ class OneViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.searchRepository(inputText)
-                if(response.isSuccessful){
-                    _searchResult.value = response.body()?.toGitItemList(languageFormat)
+                if (response.isSuccessful) {
+                    _searchResult.value = response.body()?.toGitItemList(languageFormat) ?: emptyList()
                 } else {
-                    Log.d("Get api","not success")
+                    Log.d("Get api", "not success")
                 }
-            } catch (e: Exception){
-                Log.d("Get api",e.toString())
+            } catch (e: Exception) {
+                Log.d("Get api", e.toString())
             }
         }
     }
 }
 
-@Parcelize
-data class GitItem(
-    val name: String,
-    val ownerIconUrl: String,
-    val language: String,
-    val stargazersCount: Long,
-    val watchersCount: Long,
-    val forksCount: Long,
-    val openIssuesCount: Long,
-): Parcelable

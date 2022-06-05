@@ -1,0 +1,38 @@
+package jp.co.yumemi.android.codeCheck.api
+
+import jp.co.yumemi.android.codeCheck.GitItem
+
+data class GitResponse(
+    val items: List<GitParse>
+){
+    // 表示用のList<GitItem>へ変換
+    fun toGitItemList(langFormat: String): List<GitItem> = this.items.map { it.toGitItem(langFormat) }
+}
+
+data class OwnerData(
+    val avatar_url: String?
+)
+
+// Jsonを受け取るためのクラス
+data class GitParse(
+    val full_name: String?,
+    val owner: OwnerData?,
+    val language: String?,
+    val stargazers_count: Long?,
+    val watchers_count: Long?,
+    val forks_count: Long?,
+    val open_issues_count: Long?,
+){
+    fun toGitItem(langFormat: String): GitItem{
+        return GitItem(name = this.full_name ?: "none",
+            ownerIconUrl = this.owner?.avatar_url ?: "none",
+            language = langFormat.format(this.language ?: "none"),
+            stargazersCount = this.stargazers_count ?:0,
+            watchersCount = this.watchers_count ?: 0,
+            forksCount = this.forks_count ?: 0 ,
+            openIssuesCount = this.open_issues_count ?: 0
+        )
+    }
+}
+
+

@@ -1,4 +1,4 @@
-package jp.co.yumemi.android.codeCheck
+package jp.co.yumemi.android.codeCheck.di.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import jp.co.yumemi.android.codeCheck.R
+import jp.co.yumemi.android.codeCheck.di.data.GitItem
 
 class CustomAdapter(
     private val itemClickListener: OnItemClickListener,

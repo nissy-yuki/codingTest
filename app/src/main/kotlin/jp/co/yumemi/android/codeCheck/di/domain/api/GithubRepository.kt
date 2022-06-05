@@ -1,4 +1,4 @@
-package jp.co.yumemi.android.codeCheck.api
+package jp.co.yumemi.android.codeCheck.di.domain.api
 
 import retrofit2.Response
 import retrofit2.Retrofit

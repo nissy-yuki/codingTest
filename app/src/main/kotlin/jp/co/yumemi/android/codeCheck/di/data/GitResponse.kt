@@ -1,6 +1,6 @@
-package jp.co.yumemi.android.codeCheck.api
+package jp.co.yumemi.android.codeCheck.di.domain.api
 
-import jp.co.yumemi.android.codeCheck.GitItem
+import jp.co.yumemi.android.codeCheck.di.data.GitItem
 
 data class GitResponse(
     val items: List<GitParse>
@@ -23,7 +23,7 @@ data class GitParse(
     val forks_count: Long?,
     val open_issues_count: Long?,
 ){
-    fun toGitItem(langFormat: String): GitItem{
+    fun toGitItem(langFormat: String): GitItem {
         return GitItem(name = this.full_name ?: "none",
             ownerIconUrl = this.owner?.avatar_url ?: "none",
             language = langFormat.format(this.language ?: "none"),

@@ -1,28 +1,19 @@
 /*
  * Copyright © 2021 YUMEMI Inc. All rights reserved.
  */
-package jp.co.yumemi.android.codeCheck
+package jp.co.yumemi.android.codeCheck.di.ui
 
-import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.android.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import jp.co.yumemi.android.codeCheck.api.GitResponse
-import jp.co.yumemi.android.codeCheck.api.GithubRepository
-import jp.co.yumemi.android.codeCheck.api.GithubRetrofitProvider
-import kotlinx.coroutines.async
+import jp.co.yumemi.android.codeCheck.di.data.GitItem
+import jp.co.yumemi.android.codeCheck.di.domain.api.GithubRepository
+import jp.co.yumemi.android.codeCheck.di.domain.api.GithubRetrofitProvider
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.parcelize.Parcelize
-import org.json.JSONObject
 import java.lang.Exception
 import javax.inject.Inject
 

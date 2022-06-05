@@ -3,19 +3,15 @@
  */
 package jp.co.yumemi.android.codeCheck.di.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.yumemi.android.codeCheck.di.data.GitItem
-import jp.co.yumemi.android.codeCheck.di.domain.api.GithubRepository
-import jp.co.yumemi.android.codeCheck.di.domain.api.GithubRetrofitProvider
-import jp.co.yumemi.android.codeCheck.di.domain.api.UseGitApi
+import jp.co.yumemi.android.codeCheck.di.domain.api.GetGitApiUseCase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -30,7 +26,7 @@ class OneViewModel @Inject constructor() : ViewModel() {
     private var _searchResult: MutableLiveData<List<GitItem>> = MutableLiveData()
     val searchResult: LiveData<List<GitItem>> get() = _searchResult
 
-    private val useGitApi = UseGitApi()
+    private val useGitApi = GetGitApiUseCase()
 
     fun setLanguageFormat(text: String) {
         languageFormat = text

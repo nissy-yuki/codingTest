@@ -1,4 +1,4 @@
-package jp.co.yumemi.android.codeCheck.di.domain.api
+package jp.co.yumemi.android.codeCheck.di.data.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

@@ -3,6 +3,7 @@
  */
 package jp.co.yumemi.android.codeCheck.di.ui
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -57,6 +58,13 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         // searchResultの更新を検知してRecyclerViewを更新
         viewModel.searchResult.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            if(it.isEmpty()){
+                AlertDialog.Builder(requireContext()) // FragmentではActivityを取得して生成
+                    .setTitle("Github Repository")
+                    .setMessage("検索したリポジトリは見つかりませんでした")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
         }
 
         binding.recyclerView.also {

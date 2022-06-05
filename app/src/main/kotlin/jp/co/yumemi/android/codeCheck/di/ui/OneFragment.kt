@@ -1,8 +1,9 @@
 /*
  * Copyright © 2021 YUMEMI Inc. All rights reserved.
  */
-package jp.co.yumemi.android.codeCheck
+package jp.co.yumemi.android.codeCheck.di.ui
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -13,7 +14,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import dagger.hilt.android.AndroidEntryPoint
+import jp.co.yumemi.android.codeCheck.R
 import jp.co.yumemi.android.codeCheck.databinding.FragmentOneBinding
+import jp.co.yumemi.android.codeCheck.di.data.GitItem
 
 @AndroidEntryPoint
 class OneFragment : Fragment(R.layout.fragment_one) {
@@ -55,6 +58,13 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         // searchResultの更新を検知してRecyclerViewを更新
         viewModel.searchResult.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            if(it.isEmpty()){
+                AlertDialog.Builder(requireContext()) // FragmentではActivityを取得して生成
+                    .setTitle("Github Repository")
+                    .setMessage("検索したリポジトリは見つかりませんでした")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
         }
 
         binding.recyclerView.also {

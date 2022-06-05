@@ -42,5 +42,5 @@ object ApiModule {
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .client(client)
         .build()
-    
+
 }

@@ -1,6 +1,6 @@
 package jp.co.yumemi.android.codeCheck.di.data.api
 
-import jp.co.yumemi.android.codeCheck.di.domain.api.GitResponse
+import jp.co.yumemi.android.codeCheck.di.data.GitResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers

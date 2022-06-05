@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @InstallIn(ViewModelComponent::class)
 abstract class ApiUseCaseModule {
     @Binds
-    abstract fun bindGetUserDetailUseCase(
+    abstract fun bindGetGitApiUseCase(
         Impl: GetGitApiUseCaseImpl
     ): GetGitApiUseCase
 }

@@ -2,15 +2,13 @@ package jp.co.yumemi.android.codeCheck.di.domain.api
 
 import android.util.Log
 import jp.co.yumemi.android.codeCheck.di.data.GitItem
-import jp.co.yumemi.android.codeCheck.di.data.api.GithubRepository
-import jp.co.yumemi.android.codeCheck.di.data.api.GithubRetrofitProvider
+import jp.co.yumemi.android.codeCheck.di.data.repository.GithubRepository
 import java.lang.Exception
 import javax.inject.Inject
 
-class GetGitApiUseCaseImpl @Inject constructor(): GetGitApiUseCase{
-
-    private val provider: GithubRetrofitProvider = GithubRetrofitProvider()
-    private val repository: GithubRepository = GithubRepository(provider.retrofit)
+class GetGitApiUseCaseImpl @Inject constructor(
+    private val repository: GithubRepository
+): GetGitApiUseCase{
 
     override suspend fun getSearchApi(inputText: String, languageFormat: String): List<GitItem>{
         try {

@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.yumemi.android.codeCheck.di.data.GitItem
 import jp.co.yumemi.android.codeCheck.di.domain.api.GithubRepository
 import jp.co.yumemi.android.codeCheck.di.domain.api.GithubRetrofitProvider
+import jp.co.yumemi.android.codeCheck.di.domain.api.UseGitApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.Exception
@@ -29,8 +30,7 @@ class OneViewModel @Inject constructor() : ViewModel() {
     private var _searchResult: MutableLiveData<List<GitItem>> = MutableLiveData()
     val searchResult: LiveData<List<GitItem>> get() = _searchResult
 
-    private val provider: GithubRetrofitProvider = GithubRetrofitProvider()
-    private val repository: GithubRepository = GithubRepository(provider.retrofit)
+    private val useGitApi = UseGitApi()
 
     fun setLanguageFormat(text: String) {
         languageFormat = text
@@ -39,16 +39,7 @@ class OneViewModel @Inject constructor() : ViewModel() {
     // 入力されたTextでRepositoryを検索
     fun searchResults(inputText: String) = runBlocking {
         viewModelScope.launch {
-            try {
-                val response = repository.searchRepository(inputText)
-                if (response.isSuccessful) {
-                    _searchResult.value = response.body()?.toGitItemList(languageFormat) ?: emptyList()
-                } else {
-                    Log.d("Get api", "not success")
-                }
-            } catch (e: Exception) {
-                Log.d("Get api", e.toString())
-            }
+            _searchResult.value = useGitApi.getSearchApi(inputText, languageFormat)
         }
     }
 }

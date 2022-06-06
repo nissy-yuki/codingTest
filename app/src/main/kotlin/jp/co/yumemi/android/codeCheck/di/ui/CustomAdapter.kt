@@ -28,8 +28,8 @@ class CustomAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        val textView = holder.itemView.findViewById<View>(R.id.repositoryNameView)
-        if(textView is TextView) textView.text = item.name
+        val textView = holder.itemView.findViewById<TextView>(R.id.repositoryNameView)
+        textView.text = item.name
 
         holder.itemView.setOnClickListener {
             itemClickListener.itemClick(item)

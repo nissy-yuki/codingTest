@@ -28,7 +28,7 @@ class OneViewModel @Inject constructor(
 
 
     // 入力されたTextでRepositoryを検索
-    fun searchResults(inputText: String) = runBlocking {
+    fun searchResults(inputText: String){
         viewModelScope.launch {
             _searchResult.value = getGitApiUseCase.getSearchApi(inputText)
         }

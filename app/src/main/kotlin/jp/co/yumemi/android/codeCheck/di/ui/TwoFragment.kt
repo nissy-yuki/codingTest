@@ -30,7 +30,9 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
         _binding = FragmentTwoBinding.bind(view)
         val item = args.gitItem
 
-        binding.ownerIconView.load(item.ownerIconUrl)
+        binding.ownerIconView.load(item.ownerIconUrl){
+            error(R.drawable.ic_launcher_foreground)
+        }
         binding.nameView.text = item.name
         binding.languageView.text = requireContext().getString(R.string.written_language).format(item.language)
         binding.starsView.text = "${item.stargazersCount} stars"

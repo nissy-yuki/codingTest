@@ -12,6 +12,7 @@ import javax.inject.Singleton
 @InstallIn(ViewModelComponent::class)
 abstract class GithubRepositoryModule {
     @Binds
-    abstract fun bindGithubRepository(Impl: GithubRepositoryImpl
+    abstract fun bindGithubRepository(
+        Impl: GithubRepositoryImpl
     ): GithubRepository
 }

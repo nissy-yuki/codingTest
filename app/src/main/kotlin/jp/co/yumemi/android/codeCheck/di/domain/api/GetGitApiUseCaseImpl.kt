@@ -8,13 +8,13 @@ import javax.inject.Inject
 
 class GetGitApiUseCaseImpl @Inject constructor(
     private val repository: GithubRepository
-): GetGitApiUseCase{
+) : GetGitApiUseCase {
 
-    override suspend fun getSearchApi(inputText: String, languageFormat: String): List<GitItem>{
+    override suspend fun getSearchApi(inputText: String): List<GitItem> {
         try {
             val response = repository.searchRepository(inputText)
             if (response.isSuccessful) {
-                return response.body()?.toGitItemList(languageFormat) ?: emptyList()
+                return response.body()?.toGitItemList() ?: emptyList()
             } else {
                 Log.d("Get api", "not success")
             }

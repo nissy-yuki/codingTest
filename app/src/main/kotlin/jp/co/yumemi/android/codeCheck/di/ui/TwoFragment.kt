@@ -32,7 +32,7 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
 
         binding.ownerIconView.load(item.ownerIconUrl)
         binding.nameView.text = item.name
-        binding.languageView.text = item.language
+        binding.languageView.text = requireContext().getString(R.string.written_language).format(item.language)
         binding.starsView.text = "${item.stargazersCount} stars"
         binding.watchersView.text = "${item.watchersCount} watchers"
         binding.forksView.text = "${item.forksCount} forks"

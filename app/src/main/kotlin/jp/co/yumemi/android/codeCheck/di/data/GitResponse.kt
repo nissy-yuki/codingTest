@@ -2,9 +2,10 @@ package jp.co.yumemi.android.codeCheck.di.data
 
 data class GitResponse(
     val items: List<GitParse>
-){
+) {
     // 表示用のList<GitItem>へ変換
-    fun toGitItemList(langFormat: String): List<GitItem> = this.items.map { it.toGitItem(langFormat) }
+    fun toGitItemList(): List<GitItem> =
+        this.items.map { it.toGitItem() }
 }
 
 data class OwnerData(
@@ -20,14 +21,15 @@ data class GitParse(
     val watchers_count: Long?,
     val forks_count: Long?,
     val open_issues_count: Long?,
-){
-    fun toGitItem(langFormat: String): GitItem {
-        return GitItem(name = this.full_name ?: "none",
+) {
+    fun toGitItem(): GitItem {
+        return GitItem(
+            name = this.full_name ?: "none",
             ownerIconUrl = this.owner?.avatar_url ?: "none",
-            language = langFormat.format(this.language ?: "none"),
-            stargazersCount = this.stargazers_count ?:0,
+            language = this.language ?: "none",
+            stargazersCount = this.stargazers_count ?: 0,
             watchersCount = this.watchers_count ?: 0,
-            forksCount = this.forks_count ?: 0 ,
+            forksCount = this.forks_count ?: 0,
             openIssuesCount = this.open_issues_count ?: 0
         )
     }

@@ -28,8 +28,6 @@ class OneFragment : Fragment(R.layout.fragment_one) {
 
         val binding = FragmentOneBinding.bind(view)
 
-        viewModel.setLanguageFormat(requireContext().getString(R.string.written_language))
-
         val layoutManager = LinearLayoutManager(requireContext())
         val dividerItemDecoration =
             DividerItemDecoration(requireContext(), layoutManager.orientation)
@@ -45,7 +43,10 @@ class OneFragment : Fragment(R.layout.fragment_one) {
 
                     // キーボードを閉じる
                     val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE)
-                    if (inputMethodManager is InputMethodManager) inputMethodManager.hideSoftInputFromWindow(editText.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+                    if (inputMethodManager is InputMethodManager) inputMethodManager.hideSoftInputFromWindow(
+                        editText.windowToken,
+                        InputMethodManager.RESULT_UNCHANGED_SHOWN
+                    )
 
                     editText.text.toString().let {
                         viewModel.searchResults(it)
@@ -58,7 +59,7 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         // searchResultの更新を検知してRecyclerViewを更新
         viewModel.searchResult.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            if(it.isEmpty()){
+            if (it.isEmpty()) {
                 AlertDialog.Builder(requireContext()) // FragmentではActivityを取得して生成
                     .setTitle("Github Repository")
                     .setMessage("検索したリポジトリは見つかりませんでした")

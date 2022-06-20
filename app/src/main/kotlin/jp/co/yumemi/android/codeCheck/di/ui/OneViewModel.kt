@@ -23,20 +23,14 @@ class OneViewModel @Inject constructor(
     private val getGitApiUseCase: GetGitApiUseCase
 ) : ViewModel() {
 
-    //
-    private var languageFormat: String = ""
-
     private var _searchResult: MutableLiveData<List<GitItem>> = MutableLiveData()
     val searchResult: LiveData<List<GitItem>> get() = _searchResult
 
-    fun setLanguageFormat(text: String) {
-        languageFormat = text
-    }
 
     // 入力されたTextでRepositoryを検索
     fun searchResults(inputText: String) = runBlocking {
         viewModelScope.launch {
-            _searchResult.value = getGitApiUseCase.getSearchApi(inputText, languageFormat)
+            _searchResult.value = getGitApiUseCase.getSearchApi(inputText)
         }
     }
 }

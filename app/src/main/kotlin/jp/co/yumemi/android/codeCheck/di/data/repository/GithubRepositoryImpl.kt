@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class GithubRepositoryImpl @Inject constructor(
     private val retrofit: Retrofit
-): GithubRepository {
+) : GithubRepository {
 
     override suspend fun searchRepository(query: String): Response<GitResponse> {
         val service = retrofit.create(GithubInterface::class.java)

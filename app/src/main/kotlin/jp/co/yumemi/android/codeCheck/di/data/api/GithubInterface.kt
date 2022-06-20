@@ -9,6 +9,6 @@ import retrofit2.http.Query
 interface GithubInterface {
     @Headers("Accept: application/vnd.github.v3+json")
     @GET("/search/repositories")
-    suspend fun getSearchRepositories(@Query("q") query: String) : Response<GitResponse>
+    suspend fun getSearchRepositories(@Query("q") query: String): Response<GitResponse>
 
 }

@@ -19,7 +19,7 @@ import javax.inject.Inject
  * TwoFragment で使う
  */
 @HiltViewModel
-class OneViewModel @Inject constructor(
+class ResponseListViewModel @Inject constructor(
     private val getGitApiUseCase: GetGitApiUseCase
 ) : ViewModel() {
 

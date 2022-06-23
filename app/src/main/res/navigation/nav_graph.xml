@@ -2,27 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/apk/res-auto"
+    xmlns:tools2="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/oneFragment">
+    app:startDestination="@id/responseListFragment2">
 
     <fragment
-        android:id="@+id/oneFragment"
-        android:name="jp.co.yumemi.android.codeCheck.di.ui.OneFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_one">
-        <action
-            android:id="@+id/action_repositoriesFragment_to_repositoryFragment"
-            app:destination="@id/twoFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/twoFragment"
-        android:name="jp.co.yumemi.android.codeCheck.di.ui.TwoFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_two">
+        android:id="@+id/itemDataFragment"
+        android:name="jp.co.yumemi.android.codeCheck.di.ui.ItemDataFragment"
+        android:label="ItemDataFragment" >
         <argument
             android:name="gitItem"
             app:argType="jp.co.yumemi.android.codeCheck.di.data.GitItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/responseListFragment2"
+        android:name="jp.co.yumemi.android.codeCheck.di.ui.ResponseListFragment"
+        android:label="ResponseListFragment" >
+        <action
+            android:id="@+id/actionRepositoriesFragmentToRepositoryFragment"
+            app:destination="@id/itemDataFragment" />
     </fragment>
 
 </navigation>

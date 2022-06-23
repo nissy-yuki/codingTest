@@ -12,14 +12,14 @@ import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import jp.co.yumemi.android.codeCheck.R
 import jp.co.yumemi.android.codeCheck.di.ui.TopActivity.Companion.lastSearchDate
-import jp.co.yumemi.android.codeCheck.databinding.FragmentTwoBinding
+import jp.co.yumemi.android.codeCheck.databinding.FragmentItemDataBinding
 
 @AndroidEntryPoint
-class TwoFragment : Fragment(R.layout.fragment_two) {
+class ItemDataFragment : Fragment(R.layout.fragment_item_data) {
 
-    private val args: TwoFragmentArgs by navArgs()
+    private val args: ItemDataFragmentArgs by navArgs()
 
-    private var _binding: FragmentTwoBinding? = null
+    private var _binding: FragmentItemDataBinding? = null
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class TwoFragment : Fragment(R.layout.fragment_two) {
 
         Log.d("検索した日時", lastSearchDate.toString())
 
-        _binding = FragmentTwoBinding.bind(view)
+        _binding = FragmentItemDataBinding.bind(view)
         val item = args.gitItem
 
         binding.ownerIconView.load(item.ownerIconUrl){

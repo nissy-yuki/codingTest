@@ -23,15 +23,22 @@ class OneViewModel @Inject constructor(
     private val getGitApiUseCase: GetGitApiUseCase
 ) : ViewModel() {
 
-    private var _searchResult: MutableLiveData<List<GitItem>> = MutableLiveData()
-    val searchResult: LiveData<List<GitItem>> get() = _searchResult
+    private var _searchResult: MutableLiveData<List<GitItem>?> = MutableLiveData()
+    val searchResult: LiveData<List<GitItem>?> get() = _searchResult
 
+    private var _dialogText: MutableLiveData<String> = MutableLiveData()
+    val dialogText: LiveData<String> get() = _dialogText
 
     // 入力されたTextでRepositoryを検索
     fun searchResults(inputText: String){
         viewModelScope.launch {
             _searchResult.value = getGitApiUseCase.getSearchApi(inputText)
         }
+    }
+
+    // dialogに表示するテキストをセット
+    fun setDialogText(text: String){
+        _dialogText.value = text
     }
 }
 

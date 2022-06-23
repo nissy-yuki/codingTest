@@ -10,17 +10,18 @@ class GetGitApiUseCaseImpl @Inject constructor(
     private val repository: GithubRepository
 ) : GetGitApiUseCase {
 
-    override suspend fun getSearchApi(inputText: String): List<GitItem> {
+    override suspend fun getSearchApi(inputText: String): List<GitItem>? {
         try {
             val response = repository.searchRepository(inputText)
-            if (response.isSuccessful) {
-                return response.body()?.toGitItemList() ?: emptyList()
+            return if (response.isSuccessful) {
+                response.body()?.toGitItemList() ?: emptyList()
             } else {
                 Log.d("Get api", "not success")
+                emptyList()
             }
         } catch (e: Exception) {
             Log.d("Get api", e.toString())
         }
-        return emptyList()
+        return null
     }
 }

@@ -59,12 +59,21 @@ class OneFragment : Fragment(R.layout.fragment_one) {
         // searchResultの更新を検知してRecyclerViewを更新
         viewModel.searchResult.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            if (it.isEmpty()) {
+            if (it == null) {
+                viewModel.setDialogText("インタネットに繋がっていません")
+            } else if (it.isEmpty()){
+                viewModel.setDialogText("検索結果が見つかりませんでした")
+            }
+        }
+
+        viewModel.dialogText.observe(viewLifecycleOwner){
+            if (it.isNotEmpty()) {
                 AlertDialog.Builder(requireContext()) // FragmentではActivityを取得して生成
                     .setTitle("Github Repository")
-                    .setMessage("検索したリポジトリは見つかりませんでした")
+                    .setMessage(it)
                     .setPositiveButton("OK", null)
                     .show()
+                viewModel.setDialogText("")
             }
         }
 

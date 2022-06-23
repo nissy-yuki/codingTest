@@ -15,18 +15,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import dagger.hilt.android.AndroidEntryPoint
 import jp.co.yumemi.android.codeCheck.R
-import jp.co.yumemi.android.codeCheck.databinding.FragmentOneBinding
+import jp.co.yumemi.android.codeCheck.databinding.FragmentResponseListBinding
 import jp.co.yumemi.android.codeCheck.di.data.GitItem
 
 @AndroidEntryPoint
-class OneFragment : Fragment(R.layout.fragment_one) {
+class ResponseListFragment : Fragment(R.layout.fragment_response_list) {
 
-    private val viewModel: OneViewModel by viewModels()
+    private val viewModel: ResponseListViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentOneBinding.bind(view)
+        val binding = FragmentResponseListBinding.bind(view)
 
         val layoutManager = LinearLayoutManager(requireContext())
         val dividerItemDecoration =
@@ -85,7 +85,7 @@ class OneFragment : Fragment(R.layout.fragment_one) {
     }
 
     fun gotoRepositoryFragment(item: GitItem) {
-        val action = OneFragmentDirections
+        val action = ResponseListFragmentDirections
             .actionRepositoriesFragmentToRepositoryFragment(gitItem = item)
         findNavController().navigate(action)
     }
